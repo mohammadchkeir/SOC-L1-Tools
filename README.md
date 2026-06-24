@@ -1,5 +1,3 @@
-
-
 <div align="center">
   <h1>🛡️ SOC Level-1 Automation</h1>
   <h3>AI-Driven MITRE ATT&CK Mapping for Real-Time Threat Analysis</h3>
@@ -79,16 +77,21 @@ graph TD
 
 ## 🚀 How to Run (Deployment Guide)
 
-Follow these steps to deploy and activate the AI-Driven SOC pipeline:
+Follow these steps to deploy and activate the AI-Driven SOC pipeline on your local machine:
 
 ### Step 1: Install Telemetry Tools
 Ensure your network and endpoints are actively monitored:
 * Install **Suricata** to capture network traffic.
 * Deploy **Wazuh** (Manager & Agents) alongside **Sysmon** on endpoints.
 
-### Step 2: Initialize the Database
-* Open your database management tool.
-* Import the provided database schema into your **Microsoft SQL Server**. This initializes the tables required for log ingestion and historical correlation.
+### Step 2: Initialize the Database (Attach MDF)
+This repository includes a pre-configured database containing the schema and sample mock data to easily test the AI pipeline.
+1. Download the `SOC_AI.mdf` and `SOC_AI_log.ldf` files provided in this repository.
+2. Open **SQL Server Management Studio (SSMS)**.
+3. In the Object Explorer on the left, right-click on **Databases** and select **Attach...**.
+4. In the pop-up window, click **Add**, navigate to where you downloaded the `SOC_AI.mdf` file, and select it.
+5. Click **OK** to mount the database to your local SQL Server.
+> *Note: If you encounter an "Access Denied" error, ensure you are running SSMS as Administrator, or move the database files to the default SQL Server DATA folder (e.g., `C:\Program Files\Microsoft SQL Server\...\MSSQL\DATA`).*
 
 ### Step 3: Configure Environment Variables
 Create a `.env` file in the root directory of your project. Add your API keys and database connection string as shown below:
@@ -105,7 +108,6 @@ SQL_CONN_STR="DRIVER={ODBC Driver 17 for SQL Server};SERVER=localhost;DATABASE=S
 # --- Threat Intelligence ---
 VIRUSTOTAL_API_KEY=your_virustotal_api_key_here
 ```
-> ⚠️ **Security Warning:** Never commit your `.env` file containing real API keys to a public repository! Add `.env` to your `.gitignore` file.
 
 ### Step 4: Launch the Dashboard
 Open your terminal, navigate to the project directory, and start the web interface:
